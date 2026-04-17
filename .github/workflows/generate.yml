@@ -6,12 +6,15 @@ on:
     paths:
       - "**/*.proto"
 
+  workflow_dispatch:
+
 jobs:
   generate:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -31,7 +34,7 @@ jobs:
 
       - name: Generate protobuf
         run: |
-          find proto -name "*.proto" | xargs protoc \
-            --proto_path=proto \
+          protoc --proto_path=proto \
             --go_out=. \
-            --go-grpc_out=.
+            --go-grpc_out=. \
+            $(find proto -name "*.proto")
