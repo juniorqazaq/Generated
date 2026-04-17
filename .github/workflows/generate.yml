@@ -2,9 +2,9 @@ name: Generate Proto
 
 on:
   push:
+    branches: [main]
     paths:
       - "*.proto"
-
 jobs:
   generate:
     runs-on: ubuntu-latest
